@@ -1,0 +1,7 @@
+Tau
+===
+
+.. currentmodule:: coffea.nanoevents.methods
+
+.. autoclass:: Tau
+   :show-inheritance:

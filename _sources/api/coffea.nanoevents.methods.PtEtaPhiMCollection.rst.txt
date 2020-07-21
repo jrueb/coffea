@@ -1,0 +1,7 @@
+PtEtaPhiMCollection
+===================
+
+.. currentmodule:: coffea.nanoevents.methods
+
+.. autoclass:: PtEtaPhiMCollection
+   :show-inheritance:

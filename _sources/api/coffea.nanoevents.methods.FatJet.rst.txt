@@ -1,0 +1,31 @@
+FatJet
+======
+
+.. currentmodule:: coffea.nanoevents.methods
+
+.. autoclass:: FatJet
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~FatJet.LOOSE
+      ~FatJet.TIGHT
+      ~FatJet.TIGHTLEPVETO
+      ~FatJet.isLoose
+      ~FatJet.isTight
+      ~FatJet.isTightLeptonVeto
+      ~FatJet.subjetmap
+      ~FatJet.subjets
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: LOOSE
+   .. autoattribute:: TIGHT
+   .. autoattribute:: TIGHTLEPVETO
+   .. autoattribute:: isLoose
+   .. autoattribute:: isTight
+   .. autoattribute:: isTightLeptonVeto
+   .. autoattribute:: subjetmap
+   .. autoattribute:: subjets

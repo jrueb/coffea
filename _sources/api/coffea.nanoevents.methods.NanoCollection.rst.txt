@@ -1,0 +1,7 @@
+NanoCollection
+==============
+
+.. currentmodule:: coffea.nanoevents.methods
+
+.. autoclass:: NanoCollection
+   :show-inheritance:

@@ -1,0 +1,37 @@
+NanoEventsFactory
+=================
+
+.. currentmodule:: coffea.nanoevents
+
+.. autoclass:: NanoEventsFactory
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~NanoEventsFactory.default_mixins
+      ~NanoEventsFactory.nested_items
+      ~NanoEventsFactory.special_items
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~NanoEventsFactory.events
+      ~NanoEventsFactory.get_cache
+      ~NanoEventsFactory.get_events
+      ~NanoEventsFactory.reader
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: default_mixins
+   .. autoattribute:: nested_items
+   .. autoattribute:: special_items
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: events
+   .. automethod:: get_cache
+   .. automethod:: get_events
+   .. automethod:: reader

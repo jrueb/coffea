@@ -1,0 +1,931 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NanoEvents tutorial &mdash; coffea 0.6.42 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Applying corrections to columnar data" href="applying_corrections.html" />
+    <link rel="prev" title="Coffea Processors" href="processor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> coffea
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installing coffea</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Coffea by Example</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="histograms.html">Coffea Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor.html">Coffea Processors</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NanoEvents tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Using-NanoEvents-with-a-processor">Using NanoEvents with a processor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="applying_corrections.html">Applying corrections to columnar data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">Coffea concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">API Reference Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">coffea</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../examples.html">Coffea by Example</a> &raquo;</li>
+        
+      <li>NanoEvents tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/notebooks/nanoevents.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="NanoEvents-tutorial">
+<h1>NanoEvents tutorial<a class="headerlink" href="#NanoEvents-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This is a rendered copy of <a class="reference external" href="https://github.com/CoffeaTeam/coffea/blob/master/binder/nanoevents.ipynb">nanoevents.ipynb</a>. You can optionally run it interactively on <a class="reference external" href="https://mybinder.org/v2/gh/coffeateam/coffea/master?filepath=binder%2Fnanoevents.ipynb">binder at this link</a></p>
+<p><a class="reference external" href="https://coffeateam.github.io/coffea/api/coffea.nanoaod.NanoEvents.html#coffea.nanoaod.NanoEvents">NanoEvents</a> is a Coffea utility to wrap the CMS NanoAOD (or similar) flat nTuple structure into a single awkward array with appropriate object methods (such as Lorentz vector methods), cross references, and pre-built nested objects, all lazily accessed from the source ROOT TTree via uproot. NanoEvents is in a <strong>experimental</strong> stage at this point. Certain functionality may be fragile, and some
+functionality will not be available until it is ported to awkward-array version 1.</p>
+<p>It can be instantiated as follows:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">coffea.nanoaod</span> <span class="kn">import</span> <span class="n">NanoEvents</span>
+
+<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/CoffeaTeam/coffea/raw/master/tests/samples/nano_dy.root&quot;</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">NanoEvents</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Consider looking at the class methods <a class="reference external" href="https://coffeateam.github.io/coffea/api/coffea.nanoaod.NanoEvents.html#coffea.nanoaod.NanoEvents.from_file">from_file</a> and <a class="reference external" href="https://coffeateam.github.io/coffea/api/coffea.nanoaod.NanoEvents.html#coffea.nanoaod.NanoEvents.from_arrays">from_arrays</a> to see the optional arguments.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">events</span></code> object is an awkward array, which at its top level is a record array with one record for each “collection”, where a collection is a grouping of column (TBranch) names, categorized as follows:</p>
+<ul class="simple">
+<li><p>one branch exists named <code class="docutils literal notranslate"><span class="pre">name</span></code> and no branches start with <code class="docutils literal notranslate"><span class="pre">name_</span></code>, interpreted as a single flat array;</p></li>
+<li><p>one branch exists named <code class="docutils literal notranslate"><span class="pre">name</span></code>, one named <code class="docutils literal notranslate"><span class="pre">n{name}</span></code>, and no branches start with <code class="docutils literal notranslate"><span class="pre">name_</span></code>, interpreted as a single jagged array;</p></li>
+<li><p>no branch exists named <code class="docutils literal notranslate"><span class="pre">n{name}</span></code> and many branches start with <code class="docutils literal notranslate"><span class="pre">name_*</span></code>, interpreted as a flat table; or</p></li>
+<li><p>one branch exists named <code class="docutils literal notranslate"><span class="pre">n{name}</span></code> and many branches start with <code class="docutils literal notranslate"><span class="pre">name_*</span></code>, interpreted as a jagged table.</p></li>
+</ul>
+<p>Any ROOT TTree that follows such a naming convention should be readable as a NanoEvents array.</p>
+<p>For example, in the file we opened, the branches:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Generator_binvar</span>
+<span class="n">Generator_scalePDF</span>
+<span class="n">Generator_weight</span>
+<span class="n">Generator_x1</span>
+<span class="n">Generator_x2</span>
+<span class="n">Generator_xpdf1</span>
+<span class="n">Generator_xpdf2</span>
+<span class="n">Generator_id1</span>
+<span class="n">Generator_id2</span>
+</pre></div>
+</div>
+<p>are grouped into one sub-record named <code class="docutils literal notranslate"><span class="pre">Generator</span></code> which can be accessed using either getitem or getattr syntax, i.e. <code class="docutils literal notranslate"><span class="pre">events[&quot;Generator&quot;]</span></code> or <code class="docutils literal notranslate"><span class="pre">events.Generator</span></code>. e.g.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">Generator</span><span class="o">.</span><span class="n">id1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;VirtualArray [1 -1 -1 ... -1 2 1] at 0x0001229cfd90&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># all column names can be listed with:</span>
+<span class="n">events</span><span class="o">.</span><span class="n">Generator</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;binvar&#39;, &#39;scalePDF&#39;, &#39;weight&#39;, &#39;x1&#39;, &#39;x2&#39;, &#39;xpdf1&#39;, &#39;xpdf2&#39;, &#39;id1&#39;, &#39;id2&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># In CMS NanoAOD, each TBranch has a help string, which is carried into the NanoEvents</span>
+<span class="c1"># e.g. executing the following cell should produce a help pop-up &quot;id of first parton&quot;</span>
+events.Generator.id1<span class="o">?</span>
+</pre></div>
+</div>
+</div>
+<p>Based on a collection’s name, some collections acquire additional <em>methods</em>, which are extra features exposed by the code in the mixin classes of the <a class="reference external" href="https://coffeateam.github.io/coffea/modules/coffea.nanoaod.methods.html">nanoaod.methods</a> module. For example, although <code class="docutils literal notranslate"><span class="pre">events.GenJet</span></code> has the columns:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">GenJet</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;eta&#39;, &#39;mass&#39;, &#39;phi&#39;, &#39;pt&#39;, &#39;partonFlavour&#39;, &#39;hadronFlavour&#39;]
+</pre></div></div>
+</div>
+<p>we can access additional attributes associated to each generated jet by virtue of the fact that they can be interpreted as Lorentz vectors:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">GenJet</span><span class="o">.</span><span class="n">energy</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[216.66086 669.76355 258.178] [34.46663 98.27996 1158.8408 38.086895 20.431288 29.717283] [305.5387 62.83623 74.116714 769.1337 11.190336] ... [553.1756 282.61493] [771.05457 451.83902 16.021221] [76.890686]] at 0x000122a3c890&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># or call LorentzVector methods</span>
+<span class="c1"># e.g. to find distance between leading jet and all electrons in each event</span>
+<span class="n">events</span><span class="o">.</span><span class="n">Jet</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">delta_r</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">Electron</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[] [3.1270556] [3.4542406 2.1806993] ... [0.085795395] [] []] at 0x00010694fc90&gt;
+</pre></div></div>
+</div>
+<p>The assignment of methods classes to collections is governed by <a class="reference external" href="https://github.com/CoffeaTeam/coffea/blob/bfb1d3298fde9a6c2688c39b709c3b25076d437c/coffea/nanoaod/methods/__init__.py#L7">collection_methods</a> and can be overriden with new mappings in the NanoEvents constructor, if desired. Additional methods provide convenience functions for interpreting some branches, e.g.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># unpacked Jet_jetId flags</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">Jet</span><span class="o">.</span><span class="n">isTight</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[True True True True True] [True True True ... True True False] [True True True True True] ... [True] [True True False True True True] [True True]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># unpacked GenPart_statusFlags</span>
+<span class="n">events</span><span class="o">.</span><span class="n">GenPart</span><span class="o">.</span><span class="n">hasFlags</span><span class="p">([</span><span class="s1">&#39;isPrompt&#39;</span><span class="p">,</span> <span class="s1">&#39;isLastCopy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[True True False ... False False False] [True True False ... True True False] [False True False ... False False False] ... [True True False True True True] [True True False ... True True True] [True True False ... False False False]] at 0x0001229ef110&gt;
+</pre></div></div>
+</div>
+<p>CMS NanoAOD also contains pre-computed cross-references for some types of collections. For example, there is a TBranch <code class="docutils literal notranslate"><span class="pre">Electron_genPartIdx</span></code> which indexes the <code class="docutils literal notranslate"><span class="pre">GenPart</span></code> collection per event to give the matched generated particle, and <code class="docutils literal notranslate"><span class="pre">-1</span></code> if no match is found. NanoEvents transforms these indices into an awkward <em>indexed array</em> pointing to the collection, so that one can directly access the matched particle using getattr syntax:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">Electron</span><span class="o">.</span><span class="n">matched_gen</span><span class="o">.</span><span class="n">pdgId</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[] [-11] [-11 11] ... [None] [] []] at 0x000106865bd0&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">Muon</span><span class="o">.</span><span class="n">matched_jet</span><span class="o">.</span><span class="n">pt</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[] [] [] ... [] [] []] at 0x0001229c1a10&gt;
+</pre></div></div>
+</div>
+<p>For generated particles, the parent index is similarly mapped:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">GenPart</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">pdgId</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[None None 1 ... -15 111 111] [None None -1 ... None None 433] [None None -1 ... -421 111 111] ... [None None -1 23 23 23] [None None 2 ... -11 -11 11] [None None 1 ... 111 111 111]] at 0x0001215720d0&gt;
+</pre></div></div>
+</div>
+<p>In addition, using the parent index, a helper method computes the inverse mapping, namely, <code class="docutils literal notranslate"><span class="pre">children</span></code>. As such, one can find particle siblings with:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">GenPart</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">pdgId</span>
+<span class="c1"># notice this is a doubly-jagged array</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[None None [23 21] ... [-16 111 211 211 -211] [22 22] [22 22]] [None None [23] ... None None [431]] [None None [23 -1] ... [13 -14] [22] [22]] ... [None None [23] [23] [-13 13] [-13 13]] [None None [23] ... [-11 22] [-11 22] [11]] [None None [23 21] ... [22 22] [22 22] [22 22]]] at 0x000123c8f910&gt;
+</pre></div></div>
+</div>
+<p>Since often one wants to shortcut repeated particles in a decay sequence, a helper method <code class="docutils literal notranslate"><span class="pre">distinctParent</span></code> is also available. Here we use it to find the parent particle ID for all prompt electrons:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">GenPart</span><span class="p">[</span>
+    <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">GenPart</span><span class="o">.</span><span class="n">pdgId</span><span class="p">)</span> <span class="o">==</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="n">events</span><span class="o">.</span><span class="n">GenPart</span><span class="o">.</span><span class="n">hasFlags</span><span class="p">([</span><span class="s1">&#39;isPrompt&#39;</span><span class="p">,</span> <span class="s1">&#39;isLastCopy&#39;</span><span class="p">])</span>
+<span class="p">]</span><span class="o">.</span><span class="n">distinctParent</span><span class="o">.</span><span class="n">pdgId</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[] [23 23] [23 23] ... [] [23 23] []] at 0x00012408cf50&gt;
+</pre></div></div>
+</div>
+<p>Events can be filtered like any other awkward array using boolean fancy-indexing</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mmevents</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">events</span><span class="o">.</span><span class="n">Muon</span><span class="o">.</span><span class="n">counts</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">zmm</span> <span class="o">=</span> <span class="n">mmevents</span><span class="o">.</span><span class="n">Muon</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">mmevents</span><span class="o">.</span><span class="n">Muon</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">zmm</span><span class="o">.</span><span class="n">mass</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([94.60349, 87.58368, 87.96817, 90.37454, 89.10157, 31.58276],
+      dtype=float32)
+</pre></div></div>
+</div>
+<p>One can assign new variables to the arrays, with some caveats:</p>
+<ul class="simple">
+<li><p>Assignment must use setitem (<code class="docutils literal notranslate"><span class="pre">x[&quot;name&quot;]</span> <span class="pre">=</span> <span class="pre">value</span></code>)</p></li>
+<li><p>Assignment is only allowed on the initial NanoEvents object (before any cuts)</p></li>
+</ul>
+<p>(The latter limitation will go away with the migration to awkward1.)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">events</span><span class="o">.</span><span class="n">Electron</span><span class="p">[</span><span class="s2">&quot;pt2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">Electron</span><span class="o">.</span><span class="n">pt</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">events</span><span class="o">.</span><span class="n">Electron</span><span class="o">.</span><span class="n">pt2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;JaggedArray [[] [873.79083] [3608.228 2673.4111] ... [58.934647] [] []] at 0x0001241ec990&gt;
+</pre></div></div>
+</div>
+<div class="section" id="Using-NanoEvents-with-a-processor">
+<h2>Using NanoEvents with a processor<a class="headerlink" href="#Using-NanoEvents-with-a-processor" title="Permalink to this headline">¶</a></h2>
+<p>NanoEvents can also be used inside a coffea <a class="reference external" href="https://coffeateam.github.io/coffea/api/coffea.processor.ProcessorABC.html#coffea.processor.ProcessorABC">processor</a>, as shown in this simple Z peak sketch below. The key change from the usual <code class="docutils literal notranslate"><span class="pre">run_uproot_job</span></code> syntax is to pass <code class="docutils literal notranslate"><span class="pre">&quot;nano&quot;:</span> <span class="pre">True</span></code> as an executor argument. The dataset name is included in the <code class="docutils literal notranslate"><span class="pre">events</span></code> object under the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> attribute.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">coffea</span> <span class="kn">import</span> <span class="n">processor</span><span class="p">,</span> <span class="n">hist</span>
+
+<span class="k">class</span> <span class="nc">MyZPeak</span><span class="p">(</span><span class="n">processor</span><span class="o">.</span><span class="n">ProcessorABC</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_histo</span> <span class="o">=</span> <span class="n">hist</span><span class="o">.</span><span class="n">Hist</span><span class="p">(</span>
+            <span class="s2">&quot;Events&quot;</span><span class="p">,</span>
+            <span class="n">hist</span><span class="o">.</span><span class="n">Cat</span><span class="p">(</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;Dataset&quot;</span><span class="p">),</span>
+            <span class="n">hist</span><span class="o">.</span><span class="n">Bin</span><span class="p">(</span><span class="s2">&quot;mass&quot;</span><span class="p">,</span> <span class="s2">&quot;Z mass&quot;</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">accumulator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_histo</span>
+
+    <span class="c1"># we will receive a NanoEvents instead of a coffea DataFrame</span>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="o">.</span><span class="n">identity</span><span class="p">()</span>
+        <span class="n">mmevents</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">events</span><span class="o">.</span><span class="n">Muon</span><span class="o">.</span><span class="n">counts</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">zmm</span> <span class="o">=</span> <span class="n">mmevents</span><span class="o">.</span><span class="n">Muon</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">mmevents</span><span class="o">.</span><span class="n">Muon</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span>
+            <span class="n">dataset</span><span class="o">=</span><span class="n">events</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">],</span>
+            <span class="n">mass</span><span class="o">=</span><span class="n">zmm</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">postprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">accumulator</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">accumulator</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">samples</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;DrellYan&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;https://github.com/CoffeaTeam/coffea/raw/master/tests/samples/nano_dy.root&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">run_uproot_job</span><span class="p">(</span>
+    <span class="n">samples</span><span class="p">,</span>
+    <span class="s2">&quot;Events&quot;</span><span class="p">,</span>
+    <span class="n">MyZPeak</span><span class="p">(),</span>
+    <span class="n">processor</span><span class="o">.</span><span class="n">iterative_executor</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">&quot;nano&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "24474e0991b747ab9de4696fd194937e", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1b7e1709ded5473a9f640f1a514bdc68", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">hist</span><span class="o">.</span><span class="n">plot1d</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.axes._subplots.AxesSubplot at 0x1243fd9d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_nanoevents_30_1.png" src="../_images/notebooks_nanoevents_30_1.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="applying_corrections.html" class="btn btn-neutral float-right" title="Applying corrections to columnar data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="processor.html" class="btn btn-neutral float-left" title="Coffea Processors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019, Fermi National Accelerator Laboratory
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
